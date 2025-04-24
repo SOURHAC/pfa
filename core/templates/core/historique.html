@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="p-6 space-y-10">
+    <h1 class="text-2xl font-bold mb-4">Historique des Données</h1>
+
+    <h2 class="text-xl font-semibold mb-4">Données des Capteurs</h2>
+    <table class="min-w-full bg-white shadow-lg rounded-lg">
+        <thead>
+            <tr>
+                <th class="px-4 py-2 border">Parcelle</th>
+                <th class="px-4 py-2 border">Date</th>
+                <th class="px-4 py-2 border">Humidité (%)</th>
+                <th class="px-4 py-2 border">Température (°C)</th>
+                <th class="px-4 py-2 border">Salinité</th>
+                <th class="px-4 py-2 border">NPK</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in capteur_data %}
+                <tr>
+                    <td class="px-4 py-2 border">{{ data.parcelle.nom }}</td>
+                    <td class="px-4 py-2 border">{{ data.date|date:"d/m/Y H:i" }}</td>
+                    <td class="px-4 py-2 border">{{ data.humidite }}</td>
+                    <td class="px-4 py-2 border">{{ data.temperature }}</td>
+                    <td class="px-4 py-2 border">{{ data.salinite }}</td>
+                    <td class="px-4 py-2 border">{{ data.npk }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2 class="text-xl font-semibold mb-4 mt-8">Historique des Décisions d'Irrigation</h2>
+    <table class="min-w-full bg-white shadow-lg rounded-lg">
+        <thead>
+            <tr>
+                <th class="px-4 py-2 border">Parcelle</th>
+                <th class="px-4 py-2 border">Date</th>
+                <th class="px-4 py-2 border">Stratégie</th>
+                <th class="px-4 py-2 border">Dose d'Eau (L)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for decision in irrigation_decisions %}
+                <tr>
+                    <td class="px-4 py-2 border">{{ decision.parcelle.nom }}</td>
+                    <td class="px-4 py-2 border">{{ decision.date|date:"d/m/Y H:i" }}</td>
+                    <td class="px-4 py-2 border">{{ decision.strategie }}</td>
+                    <td class="px-4 py-2 border">{{ decision.dose_eau }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
